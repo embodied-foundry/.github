@@ -4,7 +4,7 @@ Org-wide source of truth for how embodied-foundry is built: the architecture sha
 
 | Path | What lives there |
 | --- | --- |
-| [`architecture/`](architecture/) | C4 diagrams (levels 1–2) and the cross-layer contracts |
+| [`architecture/`](architecture/) | The LikeC4 architecture model (every layer, down to components) and the cross-layer contracts |
 | [`decisions/`](decisions/) | Architecture Decision Records |
 | [`conventions/`](conventions/) | Git workflow, GitHub rules, repo layout, AI-agent collaboration |
 | [`rulesets/`](rulesets/) + [`scripts/`](scripts/) | GitHub rulesets as code and the script that applies them |

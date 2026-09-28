@@ -1,0 +1,48 @@
+model {
+  operator = person 'Operator' {
+    description 'Demonstrates tasks and takes over during policy rollouts'
+  }
+  researcher = person 'Researcher' {
+    description 'Curates data, trains and evaluates policies'
+  }
+
+  robot = hardware 'Robot' {
+    description 'Real hardware or simulator: sensors and actuators'
+  }
+  devices = hardware 'Teleop devices' {
+    description 'VR headset, leader arm, spacemouse, gamepad'
+  }
+  compute = external 'Compute & storage' {
+    description 'GPU training, dataset and artifact storage'
+  }
+
+  ef = system 'embodied-foundry' {
+    description 'Collects demonstrations, turns them into datasets and policies, and runs those policies on robots'
+
+    core = layer 'core' {
+      #planned
+      description 'Contract definitions C1–C4 and the shared robot runtime that teleop and inference both run on'
+      style {
+        color muted
+      }
+    }
+    teleop = layer 'teleop' {
+      description 'Human controllers: turn operator device input into Actions'
+    }
+    data = layer 'data' {
+      description 'Ingest, validate, curate and version episode datasets'
+    }
+    training = layer 'training' {
+      #planned
+      description 'Turns a dataset version into a policy artifact. Home repo is an open decision'
+      style {
+        color muted
+      }
+    }
+    inference = layer 'inference' {
+      description 'Policy controllers: run policy artifacts on the robot and evaluate them'
+    }
+  }
+
+  operator -> devices 'operates'
+}

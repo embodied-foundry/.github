@@ -1,0 +1,23 @@
+model {
+  extend ef.inference {
+    policyLoader = component 'Policy loader' {
+      description 'Loads a C6 artifact and refuses it if the embodiment does not match'
+    }
+    policyController = component 'Policy controller' {
+      description 'Runs the policy each control step'
+    }
+    evaluation = component 'Evaluation' {
+      description 'Runs the fixed task suite and reports success per artifact'
+    }
+
+    policyLoader .consumes ef.training.c6
+    policyLoader -> policyController 'model + normalization stats'
+    policyController .implements ef.core.c3
+    policyController -> ef.core.arbiter 'Action'
+    evaluation -> policyController 'runs episodes'
+  }
+
+  ef.training.trainer -> ef.inference.policyLoader 'C6 Policy artifact'
+  ef.core.drivers -> ef.inference.policyController 'Observation'
+  researcher -> ef.inference.evaluation 'evaluates'
+}

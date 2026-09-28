@@ -1,0 +1,12 @@
+{
+  "name": "embodied-foundry-architecture",
+  "private": true,
+  "scripts": {
+    "arch:dev": "likec4 start architecture/model",
+    "arch:validate": "likec4 validate architecture/model",
+    "arch:export": "likec4 export png architecture/model -o out/architecture"
+  },
+  "devDependencies": {
+    "likec4": "1.59.4"
+  }
+}

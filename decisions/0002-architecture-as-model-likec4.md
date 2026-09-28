@@ -1,36 +1,28 @@
-# 0002. Diagrams as code: C4 model in Mermaid
+# 0002. Architecture as a model: C4 in LikeC4
 
 - Status: Accepted
 - Date: 2026-09-29
 
 ## Context
 
-The architecture must be versioned and reviewed like code, detailed enough to be useful, and editable by AI agents. Options considered: Mermaid, Structurizr DSL, D2, PlantUML, draw.io.
+The architecture spans every layer down to component level, so it will be large. It must be versioned and reviewed like code, and editable by AI agents.
 
-The notation question and the tool question are separate. For notation, the [C4 model](https://c4model.com) (context → containers → components → code) is the most widely used standard for software architecture. For the tool:
+The notation and the tool are separate choices. For notation, the [C4 model](https://c4model.com) is the most widely used standard for software architecture, but it defines only abstraction levels and element types. It does not render anything.
 
-- **Mermaid** is rendered natively by GitHub in Markdown, PR diffs and the rich-diff view, needs no build step, and is the diagram language AI agents write most reliably.
-- **Structurizr DSL** is purpose-built for C4, with one model and many views, but needs a renderer in CI, and reviewers see DSL text rather than a picture.
-- **D2** gives the best layout control, but it also needs CI rendering, and agents know it less well.
-- **draw.io** is visual, but its XML diffs are unreviewable.
+Hand-drawn diagram languages (Mermaid, D2, PlantUML, draw.io) repeat each element in every diagram that shows it. At our size, that means diagrams drift apart and none of them can hold the whole picture. A **model-based** tool defines each element once and generates views from it. We considered two:
+
+- **Structurizr DSL** is purpose-built for C4 by its creator, but its tooling is mid-consolidation (the Lite and CLI tools are archived), and its element types are fixed to C4's.
+- **LikeC4** is model-based and C4-inspired, with custom element kinds (robot hardware, contracts, stores). It supports splitting the model across files by owner, an interactive drill-down viewer, `validate` for CI, PNG export, and generators for Mermaid/D2/PlantUML. It also ships an MCP server that agents can use to query the model.
 
 ## Decision
 
-Use C4 levels as the notation and Mermaid `flowchart` as the syntax, styled with these classes:
-
-| Class | Use | Style |
-| --- | --- | --- |
-| `person` | Humans | `fill:#08427b,color:#fff` |
-| `system` | embodied-foundry as a whole | `fill:#1168bd,color:#fff` |
-| `container` | A layer / repo / runtime unit | `fill:#438dd5,color:#fff` |
-| `planned` | Does not exist yet | white fill, dashed `#438dd5` border |
-| `external` | Outside our control | `fill:#6b6b6b,color:#fff` |
-
-Do not use Mermaid's experimental `C4Context` / `C4Container` syntax, which lays out poorly on GitHub.
-
-Levels 1–2 live in this repo. Level 3 lives in each layer repo.
+- The architecture is a single LikeC4 model in `architecture/model/`, pinned to one LikeC4 version in `package.json`.
+- Each layer's components live in `model/layers/<layer>.c4`, owned by that layer's team through CODEOWNERS.
+- CI validates the model and exports every view as PNG on each PR.
+- Mermaid remains in use only for small non-architecture flows in docs (roadmap, git workflow).
 
 ## Consequences
 
-- Reviewers see rendered diagrams directly in the PR.
-- Mermaid's auto-layout limits fine positioning. If a diagram outgrows it, a later ADR may allow D2 for that diagram with CI-rendered SVGs committed next to the source.
+- An element is defined once. Renaming or moving it updates every view.
+- Reviewers see the change as `.c4` text in the diff and as rendered PNGs in the workflow artifact. Seeing it rendered inline in the PR is not possible, because GitHub does not render LikeC4.
+- Viewing locally requires Node.js.

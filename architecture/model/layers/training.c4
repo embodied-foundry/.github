@@ -1,0 +1,21 @@
+model {
+  extend ef.training {
+    c6 = contract 'C6 Policy artifact' {
+      description 'Weights, config, normalization stats, target embodiment and full provenance'
+    }
+
+    trainer = component 'Trainer' {
+      description 'Trains a policy from one dataset version'
+    }
+
+    c6 .references ef.core.c1 'valid for'
+    c6 .references ef.data.c5 'trained from'
+
+    trainer .consumes ef.data.c5
+    trainer .produces c6
+  }
+
+  ef.data.registry -> ef.training.trainer 'C5 Dataset'
+  researcher -> ef.training.trainer 'launches runs'
+  ef.training.trainer -> compute 'runs on GPUs'
+}

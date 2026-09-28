@@ -11,25 +11,7 @@ Layers depend on these contracts, never on each other's internals. This page def
 | C5 | Dataset | data | training |
 | C6 | Policy artifact | training | inference |
 
-```mermaid
-flowchart LR
-    C1["C1 Embodiment spec"]:::contract
-    C2["C2 Robot interface"]:::contract
-    C3["C3 Controller"]:::contract
-    C4["C4 Episode"]:::contract
-    C5["C5 Dataset"]:::contract
-    C6["C6 Policy artifact"]:::contract
-
-    C1 -- "shapes Observation / Action" --> C2
-    C1 -- "shapes Observation / Action" --> C3
-    C2 -- "recorded into" --> C4
-    C3 -- "source tagged in" --> C4
-    C4 -- "aggregated into" --> C5
-    C5 -- "trained into" --> C6
-    C1 -- "compatibility checked against" --> C6
-
-    classDef contract fill:#fff,stroke:#438dd5,stroke-width:2px,color:#1b1b1b
-```
+The `contracts` view in the [model](model/) shows how they reference each other.
 
 ## C1 — Embodiment spec
 

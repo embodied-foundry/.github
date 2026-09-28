@@ -1,0 +1,36 @@
+model {
+  extend ef.data {
+    c5 = contract 'C5 Dataset' {
+      description 'Immutable, versioned set of episodes with manifest and normalization statistics'
+    }
+
+    ingest = component 'Ingest' {
+      description 'Receives episodes from recorders'
+    }
+    validator = component 'Validator' {
+      description 'Checks each episode against C4 and its C1 Embodiment spec'
+    }
+    episodeStore = store 'Episode store' {
+      description 'Validated raw episodes'
+    }
+    curation = component 'Curation' {
+      description 'Filters, labels and selects episodes'
+    }
+    registry = component 'Dataset registry' {
+      description 'Publishes dataset versions and serves them'
+    }
+
+    c5 .references ef.core.c4 'aggregates'
+
+    ingest .consumes ef.core.c4
+    ingest -> validator 'episode'
+    validator -> episodeStore 'valid episode'
+    curation -> episodeStore 'selects from'
+    curation -> registry 'publishes version'
+    registry .produces c5
+  }
+
+  ef.core.recorder -> ef.data.ingest 'C4 Episode'
+  researcher -> ef.data.curation 'curates'
+  ef.data.registry -> compute 'stores datasets'
+}
