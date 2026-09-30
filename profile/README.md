@@ -6,4 +6,4 @@ Teleoperation, data and inference infrastructure for robot learning, built as re
 - **data**: ingest, validate, curate and version episode datasets
 - **inference**: run trained policies on the same robot interface and record the rollouts
 
-Architecture, conventions and roadmap live in [`.github`](https://github.com/embodied-foundry/.github).
+Architecture and roadmap live in [`architecture`](https://github.com/embodied-foundry/architecture); conventions live in [`.github`](https://github.com/embodied-foundry/.github).

@@ -29,4 +29,4 @@ Mark breaking changes with `!` (`feat!: rename action field`) and a `BREAKING CH
 
 ## Versioning and releases
 
-[Semantic Versioning](https://semver.org). Tag `main` with `vX.Y.Z`. Release tags cannot be moved or deleted. Contract versions follow the same rules ([contracts.md](../architecture/contracts.md#changing-a-contract)).
+[Semantic Versioning](https://semver.org). Tag `main` with `vX.Y.Z`. Release tags cannot be moved or deleted. Contract versions follow the same rules ([contracts.md](https://github.com/embodied-foundry/architecture/blob/main/contracts.md#changing-a-contract)).

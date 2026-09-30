@@ -1,6 +1,1 @@
-*                                       @embodied-foundry/maintainers
-/architecture/                          @embodied-foundry/maintainers @embodied-foundry/data @embodied-foundry/teleop @embodied-foundry/inference
-/architecture/model/layers/data.c4      @embodied-foundry/data
-/architecture/model/layers/teleop.c4    @embodied-foundry/teleop
-/architecture/model/layers/inference.c4 @embodied-foundry/inference
-/rulesets/                              @embodied-foundry/maintainers
+*    @embodied-foundry/maintainers

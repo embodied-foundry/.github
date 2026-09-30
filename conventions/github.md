@@ -1,6 +1,6 @@
 # GitHub rules
 
-Every repo gets the same rules, stored as code in [`rulesets/`](../rulesets/) and applied by [`scripts/apply-github-rules.sh`](../scripts/apply-github-rules.sh) ([ADR-0004](../decisions/0004-github-rules-as-code.md)). Enforcing them on private repos requires the GitHub Team plan or higher.
+Every repo gets the same rules, stored as code in [`rulesets/`](../rulesets/) and applied by [`scripts/apply-github-rules.sh`](../scripts/apply-github-rules.sh) ([ADR-0004](https://github.com/embodied-foundry/architecture/blob/main/decisions/0004-github-rules-as-code.md)). Enforcing them on private repos requires the GitHub Team plan or higher.
 
 ## Rulesets
 

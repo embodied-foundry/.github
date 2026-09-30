@@ -5,8 +5,8 @@ set -euo pipefail
 
 org=embodied-foundry
 rulesets_dir="$(cd "$(dirname "$0")/.." && pwd)/rulesets"
-repos=("$@")
-[ ${#repos[@]} -gt 0 ] || repos=(.github data teleop inference)
+X
+[ ${#repos[@]} -gt 0 ] || repos=(.github architecture data teleop inference)
 
 for repo in "${repos[@]}"; do
   gh api -X PATCH "repos/$org/$repo" \
